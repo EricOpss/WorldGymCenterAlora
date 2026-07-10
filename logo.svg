@@ -1,0 +1,6 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Logo Gym World Center</title>
+  <circle cx="60" cy="60" r="60" fill="#0a0a0a"/>
+  <path d="M18 90 L60 18 L102 90 Z" fill="#ffffff"/>
+  <path d="M70 34 L98 34 L78 86 L62 86 Z" fill="#e30613"/>
+</svg>
