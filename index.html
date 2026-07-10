@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym World Center | Álora</title>
+<meta name="description" content="Gym World Center - Tu gimnasio en Álora. Musculación, funcional, clases colectivas y nutrición desde 30€/mes.">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts: Anton (display / poster) + Work Sans (body) + Space Mono (data/utility) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --gwc-black: #0a0a0a;
+    --gwc-black-soft: #141414;
+    --gwc-card: #1a1a1a;
+    --gwc-red: #e30613;
+    --gwc-red-dark: #a10410;
+    --gwc-white: #f5f5f5;
+    --gwc-gray: #8a8a8a;
+  }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background-color: var(--gwc-black);
+    color: var(--gwc-white);
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .font-display{
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .font-mono{
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Signature element: diagonal "blade" divider used between sections, evoking a scratch/tear of gym tape or a barbell edge */
+  .blade-bottom{
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+  }
+  .blade-top{
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .text-stroke{
+    -webkit-text-stroke: 1px rgba(245,245,245,0.35);
+    color: transparent;
+  }
+
+  .red-underline{
+    position: relative;
+    display: inline-block;
+  }
+  .red-underline::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 6px;
+    background: var(--gwc-red);
+    transform: skewX(-12deg);
+  }
+
+  .card-hover{
+    border-color: rgba(255,255,255,0.1);
+  }
+  .card-hover:hover{
+    border-color: var(--gwc-red);
+  }
+
+  .nav-link{
+    position: relative;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  .btn-primary{
+    background: var(--gwc-red);
+    box-shadow: none;
+  }
+  .btn-primary:hover{
+    background: var(--gwc-red-dark);
+  }
+
+  .grain-overlay{
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  ::selection{
+    background: var(--gwc-red);
+    color: white;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar{ width: 8px; }
+  ::-webkit-scrollbar-track{ background: var(--gwc-black); }
+  ::-webkit-scrollbar-thumb{ background: var(--gwc-red-dark); }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--gwc-red);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<!-- ======================= HEADER / NAV ======================= -->
+<header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 flex items-center justify-between h-20">
+
+    <!-- LOGO PLACEHOLDER -->
+    <a href="#inicio" class="flex items-center gap-3 shrink-0">
+      <!-- Reemplaza esta imagen por tu logo: /assets/logo.png -->
+      <img src="logo.svg" alt="Logo Gym World Center" class="h-10 w-10 md:h-12 md:w-12 object-contain">
+      <span class="font-display text-xl md:text-2xl tracking-wide leading-none">
+        GYM WORLD<span class="text-[var(--gwc-red)]">CENTER</span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-9 uppercase text-white/80">
+      <a href="#inicio" class="nav-link hover:text-white">Inicio</a>
+      <a href="#instalaciones" class="nav-link hover:text-white">Instalaciones</a>
+      <a href="#precios" class="nav-link hover:text-white">Precios</a>
+      <a href="#horarios" class="nav-link hover:text-white">Horarios</a>
+      <a href="#contacto" class="nav-link hover:text-white">Contacto</a>
+    </nav>
+
+    <a href="#precios" class="hidden md:inline-block btn-primary text-white font-mono text-xs uppercase tracking-widest px-5 py-3">
+      Únete ya
+    </a>
+
+    <!-- Mobile menu button -->
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" class="md:hidden text-white p-2">
+      <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile nav panel -->
+  <nav id="mobileMenu" class="md:hidden hidden flex-col bg-[var(--gwc-black-soft)] border-t border-white/10 px-6 py-6 gap-5 uppercase">
+    <a href="#inicio" class="nav-link py-1">Inicio</a>
+    <a href="#instalaciones" class="nav-link py-1">Instalaciones</a>
+    <a href="#precios" class="nav-link py-1">Precios</a>
+    <a href="#horarios" class="nav-link py-1">Horarios</a>
+    <a href="#contacto" class="nav-link py-1">Contacto</a>
+    <a href="#precios" class="btn-primary text-white font-mono text-xs uppercase tracking-widest px-5 py-3 text-center mt-2">Únete ya</a>
+  </nav>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section id="inicio" class="relative min-h-screen flex items-end pb-24 pt-32 overflow-hidden">
+
+  <!-- IMAGEN DE FONDO PLACEHOLDER: sustituye por tu propia foto del gimnasio -->
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop"
+         alt="Interior del gimnasio Gym World Center"
+         class="w-full h-full object-cover object-center">
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40"></div>
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="absolute inset-0 grain-overlay opacity-40"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full">
+    <p class="font-mono text-[var(--gwc-red)] text-xs md:text-sm tracking-[0.3em] uppercase mb-5">
+      Álora · Entrenamiento real
+    </p>
+
+    <h1 class="font-display text-[13vw] leading-[1.02] tracking-[0.07em] md:text-[7.5rem] md:leading-[0.95] md:tracking-[0.05em] uppercase">
+      El cambio<br>
+      empieza <span class="text-[var(--gwc-red)]">hoy</span>
+    </h1>
+
+    <p class="mt-6 max-w-xl text-white/70 text-base md:text-lg">
+      Tu gimnasio en Álora para entrenar con constancia, sin complicaciones y con lo necesario para progresar.
+    </p>
+
+    <div class="mt-9 flex flex-col sm:flex-row gap-4">
+      <a href="#precios" class="btn-primary text-white font-mono uppercase tracking-widest text-sm px-8 py-4 text-center">
+        ¡Empieza Hoy!
+      </a>
+      <a href="#instalaciones" class="border border-white/30 hover:border-white text-white font-mono uppercase tracking-widest text-sm px-8 py-4 text-center transition-colors">
+        Ver instalaciones
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="bg-[var(--gwc-red)] py-3 border-y border-black/20 text-center">
+  <p class="font-display uppercase text-black text-sm md:text-base tracking-wide">
+    Entrena con constancia · Sin complicaciones · En Álora
+  </p>
+</div>
+
+<!-- ======================= SOBRE NOSOTROS / PRECIO DESTACADO ======================= -->
+<section class="relative bg-[var(--gwc-black-soft)] pt-20 pb-28 md:pb-32 blade-bottom">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 grid md:grid-cols-2 gap-14 items-center">
+
+    <div>
+      <p class="font-mono text-[var(--gwc-red)] text-xs tracking-[0.3em] uppercase mb-4">Sobre nosotros</p>
+      <h2 class="font-display text-4xl md:text-5xl uppercase leading-[0.95] mb-6">
+        Un club para quien <span class="red-underline">no se rinde</span>
+      </h2>
+      <p class="text-white/70 leading-relaxed mb-6">
+        Gym World Center nació en Álora para hacer las cosas más sencillas: entrenar con tranquilidad,
+        disponer de lo necesario para progresar y empezar sin complicaciones.
+      </p>
+      <p class="text-white/70 leading-relaxed">
+        Un espacio cómodo, bien equipado y preparado para que cada persona encuentre su ritmo y siga adelante.
+      </p>
+    </div>
+
+    <!-- Bloque destacado de precio -->
+    <div class="bg-[var(--gwc-card)] border border-white/10 p-8 md:p-10 relative">
+      <div class="absolute -top-3 -left-3 bg-[var(--gwc-red)] text-white font-mono text-xs uppercase tracking-widest px-4 py-2">
+        Oferta de entrada
+      </div>
+      <p class="text-white/60 font-mono text-xs uppercase tracking-widest mt-6 mb-3">Tu pase al cambio</p>
+      <div class="flex items-end gap-2 mb-4">
+        <span class="font-display text-7xl md:text-8xl leading-none">30€</span>
+        <span class="font-mono text-white/60 mb-2">/ mes</span>
+      </div>
+      <ul class="space-y-3 text-white/80 mb-8">
+        <li class="flex items-center gap-3">
+          <span class="text-[var(--gwc-red)] font-bold">✓</span> Sin matrícula ni permanencia
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="text-[var(--gwc-red)] font-bold">✓</span> Acceso completo a todas las zonas
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="text-[var(--gwc-red)] font-bold">✓</span> Acceso a todas las zonas del centro
+        </li>
+      </ul>
+      <a href="#contacto" class="btn-primary block text-center text-white font-mono uppercase tracking-widest text-sm px-8 py-4">
+        Quiero apuntarme
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= INSTALACIONES ======================= -->
+<section id="instalaciones" class="relative bg-[var(--gwc-black)] pt-24 pb-28 -mt-1">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="mb-14 max-w-2xl">
+      <p class="font-mono text-[var(--gwc-red)] text-xs tracking-[0.3em] uppercase mb-4">Instalaciones</p>
+      <h2 class="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
+        Lo esencial para <span class="text-[var(--gwc-red)]">entrenar bien</span>
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card-hover bg-[var(--gwc-card)] border border-white/10 overflow-hidden">
+        <div class="h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop"
+               alt="Zona de musculación" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-xl uppercase mb-2">Musculación</h3>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Zona de pesas y máquinas para trabajar cada grupo muscular con comodidad.
+          </p>
+        </div>
+      </div>
+
+      <div class="card-hover bg-[var(--gwc-card)] border border-white/10 overflow-hidden">
+        <div class="h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600881333168-2ef49b341f30?q=80&w=800&auto=format&fit=crop"
+               alt="Zona funcional" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-xl uppercase mb-2">Funcional</h3>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Espacio pensado para mover, trabajar fuerza y mejorar tu rendimiento diario.
+          </p>
+        </div>
+      </div>
+
+      <div class="card-hover bg-[var(--gwc-card)] border border-white/10 overflow-hidden">
+        <div class="h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
+               alt="Espacio para cardio" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-xl uppercase mb-2">Cardio</h3>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Un espacio simple y práctico para completar tu rutina con intensidad.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GALERÍA ======================= -->
+<section class="relative bg-[var(--gwc-black-soft)] pt-24 pb-28 blade-top blade-bottom">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="mb-12">
+      <p class="font-mono text-[var(--gwc-red)] text-xs tracking-[0.3em] uppercase mb-4">Nuestras instalaciones</p>
+      <h2 class="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
+        Un espacio <span class="text-[var(--gwc-red)]">simple y directo</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1200&auto=format&fit=crop" alt="Sala principal de pesas" class="w-full h-[280px] md:h-[360px] object-cover">
+      </div>
+      <div class="overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?q=80&w=1200&auto=format&fit=crop" alt="Recepción y ambiente del gimnasio" class="w-full h-[280px] md:h-[360px] object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= HORARIOS ======================= -->
+<section id="horarios" class="relative bg-[var(--gwc-black)] pt-24 pb-28">
+  <div class="max-w-5xl mx-auto px-5 md:px-8">
+    <div class="mb-14 text-center">
+      <p class="font-mono text-[var(--gwc-red)] text-xs tracking-[0.3em] uppercase mb-4">Horario del centro</p>
+      <h2 class="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
+        Abierto cuando <span class="text-[var(--gwc-red)]">tú puedes</span>
+      </h2>
+    </div>
+
+    <div class="border border-white/10 divide-y divide-white/10 font-mono">
+      <div class="flex items-center justify-between px-6 md:px-10 py-6 hover:bg-white/5 transition-colors">
+        <span class="uppercase tracking-widest text-sm md:text-base">Lunes — Viernes</span>
+        <span class="text-[var(--gwc-red)] text-lg md:text-xl">07:00 – 22:30</span>
+      </div>
+      <div class="flex items-center justify-between px-6 md:px-10 py-6 hover:bg-white/5 transition-colors">
+        <span class="uppercase tracking-widest text-sm md:text-base">Sábados</span>
+        <span class="text-[var(--gwc-red)] text-lg md:text-xl">09:00 – 14:00</span>
+      </div>
+      <div class="flex items-center justify-between px-6 md:px-10 py-6 hover:bg-white/5 transition-colors">
+        <span class="uppercase tracking-widest text-sm md:text-base">Domingos</span>
+        <span class="text-white/40 text-lg md:text-xl">Cerrado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PRECIOS ======================= -->
+<section id="precios" class="relative bg-[var(--gwc-black-soft)] pt-24 pb-28 blade-top">
+  <div class="max-w-4xl mx-auto px-5 md:px-8 text-center">
+    <p class="font-mono text-[var(--gwc-red)] text-xs tracking-[0.3em] uppercase mb-4">Precio único, sin sorpresas</p>
+    <h2 class="font-display text-4xl md:text-6xl uppercase leading-[0.95] mb-8">
+      30€ al mes.<br><span class="text-[var(--gwc-red)]">Cero excusas.</span>
+    </h2>
+    <p class="text-white/70 max-w-xl mx-auto mb-10">
+      Un único plan con acceso total a la sala de pesas, cardio y zonas funcionales.
+      Sin matrícula, sin permanencia, cancelas cuando quieras.
+    </p>
+    <a href="#contacto" class="btn-primary inline-block text-white font-mono uppercase tracking-widest text-sm px-10 py-5">
+      Reserva tu plaza
+    </a>
+  </div>
+</section>
+
+<!-- ======================= CONTACTO ======================= -->
+<section id="contacto" class="relative bg-[var(--gwc-black)] pt-24 pb-24">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="mb-14 max-w-2xl">
+      <p class="font-mono text-[var(--gwc-red)] text-xs tracking-[0.3em] uppercase mb-4">Contacto</p>
+      <h2 class="font-display text-4xl md:text-5xl uppercase leading-[0.95]">
+        Te esperamos en <span class="text-[var(--gwc-red)]">Álora</span>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+
+      <!-- Mapa -->
+      <div class="border border-white/10 overflow-hidden h-80 lg:h-full min-h-[320px]">
+        <!-- Iframe de Google Maps para Calle Bulerías en Álora -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3198.8740989959374!2d-4.732389683897341!3d36.81213997996687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd743fde75569d5d%3A0x624cbfa8ea74bb0f!2sC.%20Buler%C3%ADas%2C%2029500%20%C3%81lora%2C%20M%C3%A1laga%2C%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v1710000000000"
+          width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(0.9);"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación en Google Maps: C. Bulerías, 29500 Álora, Málaga, España">
+        </iframe>
+      </div>
+
+      <!-- Datos de contacto -->
+      <div class="flex flex-col justify-between gap-8">
+
+        <div class="space-y-6">
+          <div>
+            <p class="font-mono text-[var(--gwc-red)] text-xs uppercase tracking-widest mb-2">Dirección</p>
+            <p class="text-lg md:text-xl">C. Bulerías, 29500 Álora, Málaga, España</p>
+          </div>
+          <div>
+            <p class="font-mono text-[var(--gwc-red)] text-xs uppercase tracking-widest mb-2">Teléfono</p>
+            <p class="text-lg md:text-xl">+34 600 000 000</p>
+          </div>
+          <div>
+            <p class="font-mono text-[var(--gwc-red)] text-xs uppercase tracking-widest mb-2">Email</p>
+            <p class="text-lg md:text-xl">info@gymworldcenter.es</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-3 bg-[#25D366] hover:opacity-90 transition-opacity text-black font-mono uppercase tracking-widest text-sm px-6 py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-black">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.42a9.87 9.87 0 0 0 4.62 1.18h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2zm0 18.06c-1.5 0-2.96-.4-4.23-1.16l-.3-.18-3.15.83.84-3.07-.2-.32a8.15 8.15 0 0 1-1.28-4.35c0-4.5 3.67-8.16 8.17-8.16 4.5 0 8.16 3.67 8.16 8.16 0 4.5-3.66 8.25-8.01 8.25zm4.48-6.13c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.35-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42-.14 0-.3-.02-.46-.02s-.42.06-.64.3c-.22.24-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28z"/>
+            </svg>
+            Contactar por WhatsApp
+          </a>
+
+          <a href="#" aria-label="Instagram de Gym World Center" target="_blank" rel="noopener noreferrer"
+             class="flex items-center justify-center h-[52px] w-[52px] border border-white/20 hover:border-[var(--gwc-red)] hover:text-[var(--gwc-red)] transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current">
+              <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.35a4.49 4.49 0 1 0 0 8.98 4.49 4.49 0 0 0 0-8.98zm0 7.4a2.92 2.92 0 1 1 0-5.84 2.92 2.92 0 0 1 0 5.84zm5.72-7.58a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook de Gym World Center" target="_blank" rel="noopener noreferrer"
+             class="flex items-center justify-center h-[52px] w-[52px] border border-white/20 hover:border-[var(--gwc-red)] hover:text-[var(--gwc-red)] transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current">
+              <path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="bg-black border-t border-white/10 py-10">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <img src="logo.svg" alt="Logo Gym World Center" class="h-8 w-8 object-contain">
+      <span class="font-display text-lg tracking-wide">GYM WORLD<span class="text-[var(--gwc-red)]">CENTER</span></span>
+    </div>
+    <p class="text-white/40 text-xs font-mono text-center">
+      © 2026 Gym World Center · Álora, Málaga · Todos los derechos reservados
+    </p>
+    <p class="text-white/30 text-xs font-mono">Diseño &amp; desarrollo web</p>
+  </div>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const iconOpen = document.getElementById('iconOpen');
+  const iconClose = document.getElementById('iconClose');
+
+  menuBtn.addEventListener('click', () => {
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(isHidden));
+  });
+
+  // Close mobile menu after tapping a link
+  document.querySelectorAll('#mobileMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
