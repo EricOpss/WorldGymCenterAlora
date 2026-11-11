@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada | Gym World Center</title>
+<meta name="robots" content="noindex">
+<!-- Rutas absolutas: GitHub Pages sirve esta página desde cualquier URL inexistente del sitio.
+     Si la web pasa a un dominio propio, cambia /WorldGymCenterAlora/ por / en las cuatro rutas (favicon, logo y los dos enlaces). -->
+<link rel="icon" href="/WorldGymCenterAlora/logo.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --gwc-black: #0a0a0a;
+    --gwc-red: #e30613;
+    --gwc-red-dark: #a10410;
+    --gwc-white: #f5f5f5;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    background: var(--gwc-black);
+    color: var(--gwc-white);
+    font-family: 'Work Sans', sans-serif;
+  }
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gwc-white);
+    text-decoration: none;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+  .brand img{ height: 3rem; width: 3rem; }
+  .brand span span{ color: var(--gwc-red); }
+  .code{
+    margin: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gwc-red);
+  }
+  h1{
+    margin: 0;
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 10vw, 5rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .text{
+    margin: 0;
+    max-width: 32rem;
+    color: rgba(245,245,245,0.7);
+    line-height: 1.6;
+  }
+  .btn{
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--gwc-red);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .btn:hover{ background: var(--gwc-red-dark); }
+  a:focus-visible{
+    outline: 2px solid var(--gwc-red);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+
+<body>
+  <a class="brand" href="/WorldGymCenterAlora/">
+    <img src="/WorldGymCenterAlora/logo.svg" alt="Logo Gym World Center">
+    <span>GYM WORLD<span>CENTER</span></span>
+  </a>
+
+  <p class="code">Error 404</p>
+  <h1>Página no encontrada</h1>
+  <p class="text">
+    La página que buscas no existe o ha cambiado de sitio. Vuelve al inicio para ver las instalaciones, los horarios y los precios.
+  </p>
+  <a class="btn" href="/WorldGymCenterAlora/">Volver al inicio</a>
+</body>
+</html>
