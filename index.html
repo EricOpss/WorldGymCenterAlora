@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gym World Center | Álora</title>
 <meta name="description" content="Gym World Center - Tu gimnasio en Álora. Musculación, funcional, clases colectivas y nutrición desde 30€/mes.">
+<link rel="canonical" href="https://ericopss.github.io/WorldGymCenterAlora/">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -171,6 +173,7 @@
   <div class="absolute inset-0">
     <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop"
          alt="Interior del gimnasio Gym World Center"
+         fetchpriority="high"
          class="w-full h-full object-cover object-center">
     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40"></div>
     <div class="absolute inset-0 bg-black/30"></div>
@@ -243,9 +246,6 @@
         <li class="flex items-center gap-3">
           <span class="text-[var(--gwc-red)] font-bold">✓</span> Acceso completo a todas las zonas
         </li>
-        <li class="flex items-center gap-3">
-          <span class="text-[var(--gwc-red)] font-bold">✓</span> Acceso a todas las zonas del centro
-        </li>
       </ul>
       <a href="#contacto" class="btn-primary block text-center text-white font-mono uppercase tracking-widest text-sm px-8 py-4">
         Quiero apuntarme
@@ -269,7 +269,7 @@
       <div class="card-hover bg-[var(--gwc-card)] border border-white/10 overflow-hidden">
         <div class="h-48 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop"
-               alt="Zona de musculación" class="w-full h-full object-cover">
+               alt="Zona de musculación" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="p-6">
           <h3 class="font-display text-xl uppercase mb-2">Musculación</h3>
@@ -282,7 +282,7 @@
       <div class="card-hover bg-[var(--gwc-card)] border border-white/10 overflow-hidden">
         <div class="h-48 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1600881333168-2ef49b341f30?q=80&w=800&auto=format&fit=crop"
-               alt="Zona funcional" class="w-full h-full object-cover">
+               alt="Zona funcional" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="p-6">
           <h3 class="font-display text-xl uppercase mb-2">Funcional</h3>
@@ -295,7 +295,7 @@
       <div class="card-hover bg-[var(--gwc-card)] border border-white/10 overflow-hidden">
         <div class="h-48 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
-               alt="Espacio para cardio" class="w-full h-full object-cover">
+               alt="Espacio para cardio" loading="lazy" decoding="async" class="w-full h-full object-cover">
         </div>
         <div class="p-6">
           <h3 class="font-display text-xl uppercase mb-2">Cardio</h3>
@@ -320,10 +320,10 @@
 
     <div class="grid md:grid-cols-2 gap-4">
       <div class="overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1200&auto=format&fit=crop" alt="Sala principal de pesas" class="w-full h-[280px] md:h-[360px] object-cover">
+        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1200&auto=format&fit=crop" alt="Sala principal de pesas" loading="lazy" decoding="async" class="w-full h-[280px] md:h-[360px] object-cover">
       </div>
       <div class="overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?q=80&w=1200&auto=format&fit=crop" alt="Recepción y ambiente del gimnasio" class="w-full h-[280px] md:h-[360px] object-cover">
+        <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?q=80&w=1200&auto=format&fit=crop" alt="Recepción y ambiente del gimnasio" loading="lazy" decoding="async" class="w-full h-[280px] md:h-[360px] object-cover">
       </div>
     </div>
   </div>
